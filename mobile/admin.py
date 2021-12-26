@@ -6,5 +6,5 @@ admin.site.register(Model_Name)
 admin.site.register(Color)
 
 class MobileAdmin(admin.ModelAdmin):
-    list_display = ('jan_code','brand_name','model_name','color',)
+    list_display = ('jan_code','brand_name','model_name')
 admin.site.register(Mobile,MobileAdmin)

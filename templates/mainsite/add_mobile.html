@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+  <section class="text-gray-600 body-font relative">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-12">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Donate</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify.</p>
+      </div>
+      <div class="lg:w-1/2 md:w-2/3 mx-auto">
+        {% if form.errors %}
+							{% for field in form %}
+							{% for error in field.errors %}
+							<div class="border border-red-400 bg-red-300 text-red-900 p-4 my-4">
+								
+								<strong>{{ error|escape }}</strong>
+							</div>
+							{% endfor %}
+							{% endfor %}
+							{% for error in form.non_field_errors %}
+							<div class="border border-red-400 bg-red-300 text-red-900 py-4 my-4">
+								
+								<strong>{{ error|escape }}</strong>
+							</div>
+							{% endfor %}
+							{% endif %}
+        <form method="POST" action="">
+        {% csrf_token %}
+        {% for field in form %}
+						{% if field.name == 'jan_code' or field.name == 'image' %}
+                <label class="my-8"  for="{{ field.name }}">{{ field.label }}</label>
+                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}"  maxlength="200" placeholder="{{ field.field.widget.attrs.placeholder }}" class="mt-4 w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-14 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out my-4" id="id_{{ field.name }}">
+						{% else %}
+                  <label class="my-4" for="{{ field.name }}">{{ field.label }}</label>
+                  <select name="{{ field.name }}"  class="form-select appearance-none bg-gray-100 bg-opacity-50 block w-full h-14  px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out  m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none my-4" required="" id="id_{{ field.name }}">
+                    <option value="" selected="selected" disabled>Select {{ field.field.widget.attrs.placeholder }}</option>
+                    {% if field.name == 'brand_name' %}
+                      {% for brand in brand_name %}
+                        <option class="py-4" value="{{ brand.id }}" >{{ brand }}</option>
+                      {% endfor %}
+                    {% elif field.name == 'model_name' %}
+                      {% for model in model_name %}
+                        <option class="py-4" value="{{ model.id }}" >{{ model }}</option>
+                      {% endfor %}
+                    {% else %}
+                    {% for color in color %}
+                      <option class="py-4" value="{{ color.id }}" >{{ color }}</option>
+                    {% endfor %}
+                    {% endif %}
+                  </select>
+								{% endif %}
+						{% endfor %}
+
+          <div class="p-2 w-full">
+            <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Add</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+						
+{% endblock %}
