@@ -34,7 +34,7 @@ class Color(models.Model):
 class Mobile(models.Model):
     brand_name = models.ForeignKey(Brand_Name, related_name='brand', on_delete=models.CASCADE) 
     model_name = models.ForeignKey(Model_Name, related_name='model', on_delete=models.CASCADE) 
-    color = models.OneToOneField(Color,related_name='mobile_color',on_delete=models.CASCADE)
+    color = models.ForeignKey(Color,related_name='mobile_color',on_delete=models.CASCADE)
     jan_code =  models.CharField(max_length = 300,unique = True)
     image = models.URLField(max_length=200,blank=True, null=True)
 
